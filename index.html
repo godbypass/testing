@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZZXGP</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        #overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #000;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        #overlay-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #A154F1;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        header {
+            padding: 2rem 0;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #A154F1;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #A154F1;
+        }
+        
+        .discord-btn, .website-btn {
+            display: inline-block;
+            background: transparent;
+            color: #A154F1;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1rem 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(161, 84, 241, 0.2);
+            border: 2px solid #A154F1;
+        }
+        
+        .discord-btn:hover, .website-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(161,84, 241, 0.3);
+            background: rgba(161, 84, 241, 0.1);
+        }
+        
+        .divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #A154F1, transparent);
+            margin: 2rem auto;
+            opacity: 0.3;
+        }
+        
+        .info-section {
+            background: rgba(20, 20, 20, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border: 4px solid rgba(161,84,241,0.1);
+            animation: slideUp 1s ease-in-out;
+        }
+        
+        .info-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: left;
+            color: #A154F1;
+        }
+        
+        .highlight {
+            color: #A154F1;
+            font-weight: 700;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <div id="overlay-text">Click here</div>
+    </div>
+    
+    <audio id="background-audio" src="https://files.catbox.moe/rf921y.mp3" preload="auto"></audio>
+    
+    <div id="particles-js"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Nice Store</h1>
+            <p class="tagline">Cheapest accounts and services</p>
+        </header>
+        
+        <a href="https://discord.gg/zzxgp" class="discord-btn">Join Our Discord</a>
+        <a href="https://zzxgp.me" class="website-btn">Our Website</a>
+        
+        <div class="divider"></div>
+        
+        <div class="info-section">
+            <div class="info-text">
+                <p>Hello. We're ZZXGP, and we're all about giving you the <span class="highlight">best deals</span> on high quality alts.</p>
+                <p>Right now, we're offering accounts for just <span class="highlight">$0.10/alt</span>, you won't find prices this good anywhere else.</p>
+                <p>What makes us different? For newgens, we are always in <span class="highlight">stock</span>. We restock everyday</p>
+                <p>We've been around for a while now, and our customers keep coming back because we're <span class="highlight">trusted and reliable</span>.</p>
+                <p>Join our Discord and see for yourself why everyone's switching to ZZXGP. The prices are some of the best.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.getElementById('overlay').addEventListener('click', function() {
+            this.style.opacity = '0';
+            setTimeout(() => {
+                this.style.display = 'none';
+            }, 1000);
+            
+            const audio = document.getElementById('background-audio');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.error("Audio play failed:", e));
+        });
+
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#A154F1"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
