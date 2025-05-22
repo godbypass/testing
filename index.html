@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nice Store</title>
+    <meta property="og:title" content="Nice Store">
+    <meta property="og:description" content="Cheapest accounts and services.">
+    <meta property="og:image" content="https://files.catbox.moe/e7u3tc.gif">
+    <meta property="og:url" content="https://nicegen.store">
+    <meta name="theme-color" content="#A154F1">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-        
+
         body {
             margin: 0;
             padding: 0;
@@ -15,7 +20,7 @@
             color: #fff;
             overflow-x: hidden;
         }
-        
+
         #overlay {
             position: fixed;
             width: 100%;
@@ -30,7 +35,7 @@
             cursor: pointer;
             transition: opacity 1s ease-in-out;
         }
-        
+
         #overlay-text {
             font-size: 2.5rem;
             font-weight: 700;
@@ -38,7 +43,7 @@
             text-shadow: 0 0 15px rgba(255,255,255,0.5);
             animation: pulse 2s infinite;
         }
-        
+
         #particles-js {
             position: fixed;
             width: 100%;
@@ -47,32 +52,32 @@
             left: 0;
             z-index: -1;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
             text-align: center;
         }
-        
+
         header {
             padding: 2rem 0;
             animation: fadeIn 1.5s ease-in-out;
         }
-        
+
         h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             color: #A154F1;
             text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
-        
+
         .tagline {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             color: #A154F1;
         }
-        
+
         .discord-btn, .website-btn {
             display: inline-block;
             background: transparent;
@@ -87,13 +92,13 @@
             box-shadow: 0 5px 15px rgba(161, 84, 241, 0.2);
             border: 2px solid #A154F1;
         }
-        
+
         .discord-btn:hover, .website-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(161,84, 241, 0.3);
             background: rgba(161, 84, 241, 0.1);
         }
-        
+
         .divider {
             width: 100%;
             height: 2px;
@@ -101,7 +106,7 @@
             margin: 2rem auto;
             opacity: 0.3;
         }
-        
+
         .info-section {
             background: rgba(20, 20, 20, 0.7);
             padding: 2rem;
@@ -112,39 +117,50 @@
             border: 4px solid rgba(161,84,241,0.1);
             animation: slideUp 1s ease-in-out;
         }
-        
+
         .info-text {
             font-size: 1.1rem;
             line-height: 1.8;
             text-align: left;
             color: #A154F1;
         }
-        
+
         .highlight {
             color: #A154F1;
             font-weight: 700;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
+
         @keyframes slideUp {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(50px);
             }
-            to { 
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes pulse {
             0% { opacity: 0.7; }
             50% { opacity: 1; }
             100% { opacity: 0.7; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer span {
+            color: #A154F1;
         }
     </style>
 </head>
@@ -152,22 +168,22 @@
     <div id="overlay">
         <div id="overlay-text">Click here</div>
     </div>
-    
+
     <audio id="background-audio" src="https://files.catbox.moe/ydcoqk.mp3" preload="auto"></audio>
-    
+
     <div id="particles-js"></div>
-    
+
     <div class="container">
         <header>
             <h1>Nice Store</h1>
             <p class="tagline">Cheapest accounts and services</p>
         </header>
-        
+
         <a href="https://discord.gg/nicestore" class="discord-btn">Join Our Discord</a>
         <a href="https://nicestore.sell.app" class="website-btn">Our Store</a>
-        
+
         <div class="divider"></div>
-        
+
         <div class="info-section">
             <div class="info-text">
                 <p>Welcome to Nice Store. We have the <span class="highlight">best deals</span> on accounts and services.</p>
@@ -178,7 +194,9 @@
             </div>
         </div>
     </div>
-    
+
+    <footer>Made by <span>leakedbypass</span></footer>
+
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.getElementById('overlay').addEventListener('click', function() {
@@ -186,7 +204,7 @@
             setTimeout(() => {
                 this.style.display = 'none';
             }, 1000);
-            
+
             const audio = document.getElementById('background-audio');
             audio.volume = 0.5;
             audio.play().catch(e => console.error("Audio play failed:", e));
