@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Nunito', sans-serif;
-            background-color: #000;
+            background: linear-gradient(135deg, #13001e 0%, #17012b 100%);
             color: #fff;
             overflow-x: hidden;
         }
@@ -58,11 +58,17 @@
             margin: 0 auto;
             padding: 2rem;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         header {
             padding: 2rem 0;
             animation: fadeIn 1.5s ease-in-out;
+            width: 100%;
         }
 
         h1 {
@@ -78,6 +84,14 @@
             color: #A154F1;
         }
 
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
         .discord-btn, .website-btn {
             display: inline-block;
             background: transparent;
@@ -91,12 +105,15 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(161, 84, 241, 0.2);
             border: 2px solid #A154F1;
+            min-width: 200px;
+            text-align: center;
         }
 
         .discord-btn:hover, .website-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(161,84, 241, 0.3);
-            background: rgba(161, 84, 241, 0.1);
+            box-shadow: 0 8px 20px rgba(161, 84, 241, 0.4);
+            background: rgba(161, 84, 241, 0.15);
+            color: #fff;
         }
 
         .info-section {
@@ -104,16 +121,17 @@
             padding: 2rem;
             border-radius: 20px;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 2rem auto;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(161,84,241,0.7);
             animation: slideUp 1s ease-in-out;
+            width: 90%;
         }
 
         .info-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            text-align: left;
+            text-align: center;
             color: #A154F1;
         }
 
@@ -149,10 +167,63 @@
             padding: 1rem 0;
             font-size: 0.9rem;
             color: #666;
+            width: 100%;
+            margin-top: auto;
         }
 
         footer span {
             color: #A154F1;
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(161, 84, 241, 0.1);
+            border: 2px solid #A154F1;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            background: rgba(161, 84, 241, 0.2);
+            box-shadow: 0 0 15px rgba(161, 84, 241, 0.3);
+        }
+
+        .audio-control svg {
+            width: 24px;
+            height: 24px;
+            fill: #A154F1;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover svg {
+            fill: #fff;
+        }
+
+        .audio-control.playing .pause-icon {
+            display: block;
+        }
+
+        .audio-control.playing .play-icon {
+            display: none;
+        }
+
+        .audio-control:not(.playing) .pause-icon {
+            display: none;
+        }
+
+        .audio-control:not(.playing) .play-icon {
+            display: block;
         }
     </style>
 </head>
@@ -165,16 +236,25 @@
 
     <div id="particles-js"></div>
 
+    <button class="audio-control" id="audioControl" aria-label="Toggle music">
+        <svg class="pause-icon" viewBox="0 0 24 24">
+            <path d="M6 4h4v16H6zm8 0h4v16h-4z"/>
+        </svg>
+        <svg class="play-icon" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </button>
+
     <div class="container">
         <header>
             <h1>Nice Store</h1>
             <p class="tagline">Cheapest accounts and services</p>
         </header>
 
-        <a href="https://discord.gg/nicestore" class="discord-btn">Join Our Discord</a>
-        <a href="https://nicestore.sell.app" class="website-btn">Our Store</a>
-
-        <div class="divider"></div>
+        <div class="buttons-container">
+            <a href="https://discord.gg/nicestore" class="discord-btn">Join Our Discord</a>
+            <a href="https://nicestore.sell.app" class="website-btn">Our Store</a>
+        </div>
 
         <div class="info-section">
             <div class="info-text">
@@ -200,19 +280,39 @@
             const audio = document.getElementById('background-audio');
             audio.volume = 0.5;
             audio.play().catch(e => console.error("Audio play failed:", e));
+            document.getElementById('audioControl').classList.add('playing');
+        });
+
+        const audioControl = document.getElementById('audioControl');
+        const audio = document.getElementById('background-audio');
+
+        audioControl.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioControl.classList.add('playing');
+                }).catch(e => console.error("Audio play failed:", e));
+            } else {
+                audio.pause();
+                audioControl.classList.remove('playing');
+            }
+        });
+
+        // Update button state when audio ends
+        audio.addEventListener('ended', function() {
+            audioControl.classList.remove('playing');
         });
 
         particlesJS("particles-js", {
             "particles": {
                 "number": {
-                    "value": 80,
+                    "value": 100,
                     "density": {
                         "enable": true,
                         "value_area": 800
                     }
                 },
                 "color": {
-                    "value": "#A154F1"
+                    "value": ["#A154F1", "#8A2BE2", "#9400D3", "#8B008B"]
                 },
                 "shape": {
                     "type": "circle",
@@ -225,10 +325,10 @@
                     }
                 },
                 "opacity": {
-                    "value": 0.5,
-                    "random": false,
+                    "value": 0.6,
+                    "random": true,
                     "anim": {
-                        "enable": false,
+                        "enable": true,
                         "speed": 1,
                         "opacity_min": 0.1,
                         "sync": false
@@ -238,8 +338,8 @@
                     "value": 3,
                     "random": true,
                     "anim": {
-                        "enable": false,
-                        "speed": 40,
+                        "enable": true,
+                        "speed": 2,
                         "size_min": 0.1,
                         "sync": false
                     }
@@ -247,20 +347,20 @@
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#ffffff",
+                    "color": "#A154F1",
                     "opacity": 0.4,
                     "width": 1
                 },
                 "move": {
                     "enable": true,
-                    "speed": 2,
+                    "speed": 1.5,
                     "direction": "none",
-                    "random": false,
+                    "random": true,
                     "straight": false,
                     "out_mode": "out",
                     "bounce": false,
                     "attract": {
-                        "enable": false,
+                        "enable": true,
                         "rotateX": 600,
                         "rotateY": 1200
                     }
@@ -271,7 +371,7 @@
                 "events": {
                     "onhover": {
                         "enable": true,
-                        "mode": "grab"
+                        "mode": "bubble"
                     },
                     "onclick": {
                         "enable": true,
@@ -287,10 +387,10 @@
                         }
                     },
                     "bubble": {
-                        "distance": 400,
-                        "size": 40,
+                        "distance": 200,
+                        "size": 6,
                         "duration": 2,
-                        "opacity": 8,
+                        "opacity": 0.8,
                         "speed": 3
                     },
                     "repulse": {
